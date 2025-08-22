@@ -39,7 +39,7 @@ Before running the tests, ensure you have the following installed:
 
 📌 Future Enhancements
 - Extend coverage to the Checkout & Order Confirmation flow.
-- Add ExtentReports/Allure for detailed HTML reporting.
+- Introduce cross-browser testing support.
 - Integrate with Jenkins CI/CD pipeline for automated execution.
 
 👨‍💻 Author
