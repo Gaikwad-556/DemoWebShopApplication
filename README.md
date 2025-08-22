@@ -22,6 +22,13 @@ The project demonstrates:
   - Remove items from the cart.
   - Apply invalid/empty discount or gift card codes → appropriate error messages.
 
+ 🛠️ Tech Stack
+- Programming Language: Java
+- Automation Tool: Selenium WebDriver
+- Testing Framework: TestNG
+- Framework Design: Page Object Model (POM)
+- Test Data: Data-Driven Testing with Database Integration (JDBC)
+
 ⚙️ Prerequisites
 
 Before running the tests, ensure you have the following installed:
@@ -29,13 +36,6 @@ Before running the tests, ensure you have the following installed:
 - TestNG (installed in your IDE or via jar)
 - Selenium WebDriver JARs included in the project
 - Database Connection (configured inside test classes for fetching test data)
-
-🛠️ Tech Stack
-- Programming Language: Java
-- Automation Tool: Selenium WebDriver
-- Testing Framework: TestNG
-- Framework Design: Page Object Model (POM)
-- Test Data: Data-Driven Testing with Database Integration (JDBC)
 
 📌 Future Enhancements
 - Extend coverage to the Checkout & Order Confirmation flow.
