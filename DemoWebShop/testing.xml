@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="SuiteWebdemoShop">
+
+	<test name="TestRegistration" thread-count="5">
+	    <parameter name="registerpageurl" value="https://demowebshop.tricentis.com/register"></parameter>
+	    <classes>
+	    	<class name="com.DemoWebShop.Registration.RegistrationPage"></class>
+	    </classes>
+    </test>
+    
+     <test name="TestPasswordRecovery" thread-count="5">
+	    <parameter name="passwordrecoveryurl" value="https://demowebshop.tricentis.com/login"></parameter>
+	    <classes>
+	    	<class name="com.DemoWebShop.PasswordRecovery.PasswordRecovery"></class>
+	    </classes>
+    </test>
+    
+    <test name="TestLogin" thread-count="5">
+    <parameter name="loginurl" value="https://demowebshop.tricentis.com/"></parameter>
+	    <classes>
+	    	<class name="com.DemoWebShop.Login.LoginPage"></class>
+	    </classes>
+    </test>
+    
+    <test name="TestAddtoCart">
+    <parameter name="carturl" value="https://demowebshop.tricentis.com/"></parameter>
+	    <classes>
+	    	<class name="com.DemoWebShop.Cart.CartTest"></class>
+	    </classes>
+    </test>
+</suite>
