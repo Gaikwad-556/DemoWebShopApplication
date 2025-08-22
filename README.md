@@ -22,6 +22,14 @@ The project demonstrates:
   - Remove items from the cart.
   - Apply invalid/empty discount or gift card codes → appropriate error messages.
 
+⚙️ Prerequisites
+
+Before running the tests, ensure you have the following installed:
+- Java JDK 8 or above
+- TestNG (installed in your IDE or via jar)
+- Selenium WebDriver JARs included in the project
+- Database Connection (configured inside test classes for fetching test data)
+
 🛠️ Tech Stack
 - Programming Language: Java
 - Automation Tool: Selenium WebDriver
