@@ -1,52 +1,26 @@
 package com.DemoWebShop.Registration;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import utils.DatabaseUtils;
 
 public class POM_RegistrationPage {
 	
 	private WebDriver driver;
-	private Connection con;
 
 	public POM_RegistrationPage(WebDriver driver) throws SQLException {
 		super();
 		this.driver = driver;
-		this.con = DriverManager.getConnection(db_url,db_user,db_password);
 		PageFactory.initElements(driver,this);
 	}
 	
-//	query 
-	String query_allMandatoryField = "select * from registrationpage where status='fail' AND testingType='allMandatoryField'";
-	String query_invalidEmailFormat = "select * from registrationpage where status='fail' AND testingType='invalidEmailFormat'";
-	String query_lesserPasswordThanSix = "select * from registrationpage where status='fail' AND testingType='lesserPasswordThanSix'";
-	String query_misMatchPasswordAndConfirmPassword = "select * from registrationpage where status='fail' AND testingType='misMatchPasswordAndConfirmPassword'";
-	String query_enteringRegisteredEmail = "select * from registrationpage where status='fail' AND testingType='enteringRegisteredEmail'";
-	String query_invalidFirstName = "select * from registrationpage where status='fail' AND testingType='invalidFirstName'";
-	String query_invalidLastName = "select * from registrationpage where status='fail' AND testingType='invalidLastName'";
-	String query_invalidPasswordFormat = "select * from registrationpage where status='fail' AND testingType='invalidPasswordFormat'";
-	String query_allValidEntry = "select * from registrationpage where status='pass' AND testingType='allValidEntry'";
 
-//	variable
-	private String db_url = System.getenv("DB_URL");
-	private String db_password = System.getenv("PASSWORD_DB");
-	private String db_user = System.getenv("USER_DB");
-	
-	
 //	Male gender radio button
 	@FindBy(id = "gender-male")
 	private WebElement maleGenderRadioButton;
@@ -142,27 +116,6 @@ public class POM_RegistrationPage {
 		registerButton.click();
 	}
 	
-
-//	database connection
-	public List<String[]> dbdata(String query) throws SQLException {
-		List<String[]> data = new ArrayList<>();
-		
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(query);
-		while(rs.next()) {
-			String firstName = rs.getString("first name");
-			String lastName = rs.getString("last name");
-			String email = rs.getString("email");
-			String password = rs.getString("password");
-			String confirmPassword = rs.getString("confirm password");
-			String result = rs.getString("result");
-			
-			data.add(new String[]{firstName,lastName,email,password,confirmPassword,result});
-		}	
-		return data;
-	}
-	
-	
 //	assert check
 //	validate first name field
 	public void firstNameAssert(String firstName) {
@@ -212,7 +165,7 @@ public class POM_RegistrationPage {
 	
 //	clean up tasks
 	public void end() throws SQLException {
-		con.close();
+		DatabaseUtils.close();
 		driver.quit();
 	}
 }

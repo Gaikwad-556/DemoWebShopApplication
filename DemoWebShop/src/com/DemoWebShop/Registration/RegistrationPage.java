@@ -1,7 +1,10 @@
 package com.DemoWebShop.Registration;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,6 +15,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.internal.annotations.ITest;
+
+import utils.DatabaseUtils;
 
 public class RegistrationPage {
 	
@@ -29,17 +34,23 @@ public class RegistrationPage {
 	
 //	All Mandatory Field
 	@Test(priority = 1) 
-	public void allMandatoryField() throws SQLException {
-		String query = rPOM.query_allMandatoryField;
+	public void allMandatoryField() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String status = "fail";
+		String testingType = "allMandatoryField";
+		String queryOf = "registrationQuery";
 		
-		List<String[]> data = rPOM.dbdata(query);
-		for(String[] i:data) {
-			String firstName = i[0];
-			String lastName = i[1];
-			String email = i[2];
-			String password = i[3];
-			String confirmPassword = i[4];
-			String[] result = i[5].split(",");
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);;
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String firstName = i.get("firstName");
+			String lastName = i.get("lastName");
+			String email = i.get("email");
+			String password = i.get("password");
+			String confirmPassword = i.get("confirmPassword");
+			String[] result = i.get("result").split(",");
 			
 //			entering value to fields
 			rPOM.dataFirstName(firstName);
@@ -70,17 +81,23 @@ public class RegistrationPage {
 	
 //	Invalid Email Format
 	@Test(priority = 2)
-	public void invalidEmailFormat() throws SQLException {
-		String query = rPOM.query_invalidEmailFormat;
+	public void invalidEmailFormat() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String status = "fail";
+		String testingType = "invalidEmailFormat";
+		String queryOf = "registrationQuery";
 		
-		List<String[]> data = rPOM.dbdata(query);
-		for(String[] i:data) {
-			String firstName = i[0];
-			String lastName = i[1];
-			String email = i[2];
-			String password = i[3];
-			String confirmPassword = i[4];
-			String result = i[5];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);;
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String firstName = i.get("firstName");
+			String lastName = i.get("lastName");
+			String email = i.get("email");
+			String password = i.get("password");
+			String confirmPassword = i.get("confirmPassword");
+			String result = i.get("result");
 			
 //			entering value to fields
 			rPOM.maleGenderSelect();
@@ -100,17 +117,23 @@ public class RegistrationPage {
 	
 //	Entering less than six character password
 	@Test(priority = 3) 
-	public void lesserPasswordThanSix() throws SQLException {
-		String query = rPOM.query_lesserPasswordThanSix;
+	public void lesserPasswordThanSix() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String status = "fail";
+		String testingType = "lesserPasswordThanSix";
+		String queryOf = "registrationQuery";
 		
-		List<String[]> data = rPOM.dbdata(query);
-		for(String[] i:data) {
-			String firstName = i[0];
-			String lastName = i[1];
-			String email = i[2];
-			String password = i[3];
-			String confirmPassword = i[4];
-			String result = i[5];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);;
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String firstName = i.get("firstName");
+			String lastName = i.get("lastName");
+			String email = i.get("email");
+			String password = i.get("password");
+			String confirmPassword = i.get("confirmPassword");
+			String result = i.get("result");
 			
 //			entering value to fields
 			rPOM.femaleGenderSelect();
@@ -130,17 +153,23 @@ public class RegistrationPage {
 	
 //	Mis-Match Password And Confirm Password
 	@Test(priority = 4)
-	public void misMatchPasswordAndConfirmPassword() throws SQLException {
-		String query = rPOM.query_misMatchPasswordAndConfirmPassword;
+	public void misMatchPasswordAndConfirmPassword() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String status = "fail";
+		String testingType = "misMatchPasswordAndConfirmPassword";
+		String queryOf = "registrationQuery";
 		
-		List<String[]> data = rPOM.dbdata(query);
-		for(String[] i:data) {
-			String firstName = i[0];
-			String lastName = i[1];
-			String email = i[2];
-			String password = i[3];
-			String confirmPassword = i[4];
-			String result = i[5];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);;
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String firstName = i.get("firstName");
+			String lastName = i.get("lastName");
+			String email = i.get("email");
+			String password = i.get("password");
+			String confirmPassword = i.get("confirmPassword");
+			String result = i.get("result");
 			
 //			entering value to fields
 			rPOM.femaleGenderSelect();
@@ -160,17 +189,23 @@ public class RegistrationPage {
 	
 //	Entering Registered Email
 	@Test(priority = 5)
-	public void enteringRegisteredEmail() throws SQLException {
-		String query = rPOM.query_enteringRegisteredEmail;
+	public void enteringRegisteredEmail() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String status = "fail";
+		String testingType = "enteringRegisteredEmail";
+		String queryOf = "registrationQuery";
 		
-		List<String[]> data = rPOM.dbdata(query);
-		for(String[] i:data) {
-			String firstName = i[0];
-			String lastName = i[1];
-			String email = i[2];
-			String password = i[3];
-			String confirmPassword = i[4];
-			String result = i[5];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);;
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String firstName = i.get("firstName");
+			String lastName = i.get("lastName");
+			String email = i.get("email");
+			String password = i.get("password");
+			String confirmPassword = i.get("confirmPassword");
+			String result = i.get("result");
 			
 //			entering value to fields
 			rPOM.maleGenderSelect();
@@ -190,17 +225,23 @@ public class RegistrationPage {
 	
 //	Invalid First Name
 	@Test(priority = 6)
-	public void invalidFirstName() throws SQLException {
-		String query = rPOM.query_invalidFirstName;
+	public void invalidFirstName() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String status = "fail";
+		String testingType = "invalidFirstName";
+		String queryOf = "registrationQuery";
 		
-		List<String[]> data = rPOM.dbdata(query);
-		for(String[] i:data) {
-			String firstName = i[0];
-			String lastName = i[1];
-			String email = i[2];
-			String password = i[3];
-			String confirmPassword = i[4];
-			String result = i[5];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);;
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String firstName = i.get("firstName");
+			String lastName = i.get("lastName");
+			String email = i.get("email");
+			String password = i.get("password");
+			String confirmPassword = i.get("confirmPassword");
+			String result = i.get("result");
 			
 //			entering value to fields
 			rPOM.maleGenderSelect();
@@ -221,17 +262,23 @@ public class RegistrationPage {
 	
 //	Invalid Last Name
 	@Test(priority = 7)
-	public void invalidLastName() throws SQLException {
-		String query = rPOM.query_invalidLastName;
+	public void invalidLastName() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String status = "fail";
+		String testingType = "invalidLastName";
+		String queryOf = "registrationQuery";
 		
-		List<String[]> data = rPOM.dbdata(query);
-		for(String[] i:data) {
-			String firstName = i[0];
-			String lastName = i[1];
-			String email = i[2];
-			String password = i[3];
-			String confirmPassword = i[4];
-			String result = i[5];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);;
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String firstName = i.get("firstName");
+			String lastName = i.get("lastName");
+			String email = i.get("email");
+			String password = i.get("password");
+			String confirmPassword = i.get("confirmPassword");
+			String result = i.get("result");
 			
 //			entering value to fields
 			rPOM.maleGenderSelect();
@@ -252,17 +299,23 @@ public class RegistrationPage {
 	
 //	Invalid Password Format
 	@Test(priority = 8)
-	public void invalidPasswordFormat() throws SQLException {
-		String query = rPOM.query_invalidPasswordFormat;
+	public void invalidPasswordFormat() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String status = "fail";
+		String testingType = "invalidPasswordFormat";
+		String queryOf = "registrationQuery";
 		
-		List<String[]> data = rPOM.dbdata(query);
-		for(String[] i:data) {
-			String firstName = i[0];
-			String lastName = i[1];
-			String email = i[2];
-			String password = i[3];
-			String confirmPassword = i[4];
-			String result = i[5];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);;
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String firstName = i.get("firstName");
+			String lastName = i.get("lastName");
+			String email = i.get("email");
+			String password = i.get("password");
+			String confirmPassword = i.get("confirmPassword");
+			String result = i.get("result");
 			
 //			entering value to fields
 			rPOM.maleGenderSelect();
@@ -283,17 +336,23 @@ public class RegistrationPage {
 	
 //	Entering all valid field
 	@Test(priority = 9)
-	public void allValidEntry() throws SQLException {
-		String query = rPOM.query_allValidEntry;
+	public void allValidEntry() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String status = "pass";
+		String testingType = "allValidEntry";
+		String queryOf = "registrationQuery";
 		
-		List<String[]> data = rPOM.dbdata(query);
-		for(String[] i:data) {
-			String firstName = i[0];
-			String lastName = i[1];
-			String email = i[2];
-			String password = i[3];
-			String confirmPassword = i[4];
-			String result = i[5];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);;
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String firstName = i.get("firstName");
+			String lastName = i.get("lastName");
+			String email = i.get("email");
+			String password = i.get("password");
+			String confirmPassword = i.get("confirmPassword");
+			String result = i.get("result");
 			
 //			entering value to fields
 			rPOM.maleGenderSelect();

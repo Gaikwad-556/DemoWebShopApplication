@@ -1,68 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="10" passed="10" failed="0" skipped="0">
+<testng-results ignored="0" total="9" passed="9" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-08-22T20:06:50 IST" name="Default suite" finished-at="2025-08-22T20:10:44 IST" duration-ms="234023">
+  <suite started-at="2025-08-30T21:40:31 IST" name="Default suite" finished-at="2025-08-30T21:40:54 IST" duration-ms="23367">
     <groups>
     </groups>
-    <test started-at="2025-08-22T20:06:50 IST" name="Default test" finished-at="2025-08-22T20:10:44 IST" duration-ms="234023">
-      <class name="com.DemoWebShop.Cart.CartTest">
-        <test-method is-config="true" signature="setup(java.lang.String)[pri:0, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:06:50 IST" name="setup" finished-at="2025-08-22T20:07:15 IST" duration-ms="24757" status="PASS">
+    <test started-at="2025-08-30T21:40:31 IST" name="Default test" finished-at="2025-08-30T21:40:54 IST" duration-ms="23367">
+      <class name="com.DemoWebShop.Registration.RegistrationPage">
+        <test-method is-config="true" signature="setup(java.lang.String)[pri:0, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:31 IST" name="setup" finished-at="2025-08-30T21:40:39 IST" duration-ms="8022" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[https://demowebshop.tricentis.com/]]>
+                <![CDATA[https://demowebshop.tricentis.com/register]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="confirmMessage()[pri:1, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:07:15 IST" name="confirmMessage" finished-at="2025-08-22T20:07:20 IST" duration-ms="5333" status="PASS">
+        <test-method signature="allMandatoryField()[pri:1, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:39 IST" name="allMandatoryField" finished-at="2025-08-30T21:40:40 IST" duration-ms="958" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- confirmMessage -->
-        <test-method signature="productConfirmationInCartAddFromMainWindow()[pri:2, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:07:20 IST" name="productConfirmationInCartAddFromMainWindow" finished-at="2025-08-22T20:07:27 IST" duration-ms="6961" status="PASS">
+        </test-method> <!-- allMandatoryField -->
+        <test-method signature="invalidEmailFormat()[pri:2, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:40 IST" name="invalidEmailFormat" finished-at="2025-08-30T21:40:42 IST" duration-ms="1973" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- productConfirmationInCartAddFromMainWindow -->
-        <test-method signature="productConfirmationInCartAddFromEachProductWindow()[pri:3, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:07:27 IST" name="productConfirmationInCartAddFromEachProductWindow" finished-at="2025-08-22T20:07:54 IST" duration-ms="26925" status="PASS">
+        </test-method> <!-- invalidEmailFormat -->
+        <test-method signature="lesserPasswordThanSix()[pri:3, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:42 IST" name="lesserPasswordThanSix" finished-at="2025-08-30T21:40:43 IST" duration-ms="1804" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- productConfirmationInCartAddFromEachProductWindow -->
-        <test-method signature="inCartQuantityValueChange()[pri:4, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:07:54 IST" name="inCartQuantityValueChange" finished-at="2025-08-22T20:08:19 IST" duration-ms="24888" status="PASS">
+        </test-method> <!-- lesserPasswordThanSix -->
+        <test-method signature="misMatchPasswordAndConfirmPassword()[pri:4, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:43 IST" name="misMatchPasswordAndConfirmPassword" finished-at="2025-08-30T21:40:45 IST" duration-ms="1916" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- inCartQuantityValueChange -->
-        <test-method signature="couponFieldLeftBlank()[pri:5, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:08:19 IST" name="couponFieldLeftBlank" finished-at="2025-08-22T20:08:29 IST" duration-ms="10316" status="PASS">
+        </test-method> <!-- misMatchPasswordAndConfirmPassword -->
+        <test-method signature="enteringRegisteredEmail()[pri:5, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:45 IST" name="enteringRegisteredEmail" finished-at="2025-08-30T21:40:50 IST" duration-ms="4094" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- couponFieldLeftBlank -->
-        <test-method signature="invalidcouponField()[pri:6, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:08:29 IST" name="invalidcouponField" finished-at="2025-08-22T20:08:55 IST" duration-ms="25441" status="PASS">
+        </test-method> <!-- enteringRegisteredEmail -->
+        <test-method signature="invalidFirstName()[pri:6, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:50 IST" name="invalidFirstName" finished-at="2025-08-30T21:40:51 IST" duration-ms="1258" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- invalidcouponField -->
-        <test-method signature="giftCardFieldBlank()[pri:7, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:08:55 IST" name="giftCardFieldBlank" finished-at="2025-08-22T20:09:10 IST" duration-ms="15274" status="PASS">
+        </test-method> <!-- invalidFirstName -->
+        <test-method signature="invalidLastName()[pri:7, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:51 IST" name="invalidLastName" finished-at="2025-08-30T21:40:52 IST" duration-ms="1022" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- giftCardFieldBlank -->
-        <test-method signature="invalidGiftCardField()[pri:8, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:09:10 IST" name="invalidGiftCardField" finished-at="2025-08-22T20:09:43 IST" duration-ms="33527" status="PASS">
+        </test-method> <!-- invalidLastName -->
+        <test-method signature="invalidPasswordFormat()[pri:8, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:52 IST" name="invalidPasswordFormat" finished-at="2025-08-30T21:40:53 IST" duration-ms="1020" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- invalidGiftCardField -->
-        <test-method signature="subTotalCheck()[pri:9, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:09:43 IST" name="subTotalCheck" finished-at="2025-08-22T20:10:25 IST" duration-ms="41286" status="PASS">
+        </test-method> <!-- invalidPasswordFormat -->
+        <test-method signature="allValidEntry()[pri:9, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:53 IST" name="allValidEntry" finished-at="2025-08-30T21:40:54 IST" duration-ms="1066" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- subTotalCheck -->
-        <test-method signature="checkTermOfService()[pri:10, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:10:25 IST" name="checkTermOfService" finished-at="2025-08-22T20:10:32 IST" duration-ms="7153" status="PASS">
+        </test-method> <!-- allValidEntry -->
+        <test-method is-config="true" signature="close()[pri:0, instance:com.DemoWebShop.Registration.RegistrationPage@49438269]" started-at="2025-08-30T21:40:54 IST" name="close" finished-at="2025-08-30T21:40:54 IST" duration-ms="184" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- checkTermOfService -->
-        <test-method is-config="true" signature="clear()[pri:0, instance:com.DemoWebShop.Cart.CartTest@55fe41ea]" started-at="2025-08-22T20:10:32 IST" name="clear" finished-at="2025-08-22T20:10:44 IST" duration-ms="12091" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- clear -->
-      </class> <!-- com.DemoWebShop.Cart.CartTest -->
+        </test-method> <!-- close -->
+      </class> <!-- com.DemoWebShop.Registration.RegistrationPage -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
