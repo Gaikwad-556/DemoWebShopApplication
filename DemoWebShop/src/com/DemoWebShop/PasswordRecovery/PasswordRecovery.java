@@ -1,7 +1,10 @@
 package com.DemoWebShop.PasswordRecovery;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,6 +15,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import utils.DatabaseUtils;
+
 
 public class PasswordRecovery {
 	WebDriver driver;
@@ -19,22 +24,30 @@ public class PasswordRecovery {
 	
 	@Parameters("passwordrecoveryurl")
 	@BeforeTest
-	public void setup(String passwordrecoveryurl) throws SQLException {
+	public void setup(String passwordrecoveryurl) throws SQLException, InterruptedException {
 		driver = new ChromeDriver();
 		driver.get(passwordrecoveryurl);
 		driver.manage().window().maximize();
+		Thread.sleep(5000);
 		recoveryPom = new POM_PasswordRecovery(driver);
 		recoveryPom.forgotPasswordclick();
 	}
 	
 //	all field left blank
 	@Test(priority = 1)
-	public void fieldBlank() throws SQLException {
-		String query = recoveryPom.query_fieldBlank;
-		List<String[]> data = recoveryPom.dbData(query);
-		for(String[] i:data) {
-//			String email = i[0];
-			String result = i[1];
+	public void fieldBlank() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "passwordRecoveryQuery";
+		String status = "fail";
+		String testingType = "fieldBlank";
+		
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+//			String email = i.get("email");
+			String result = i.get("result");
 			
 			recoveryPom.recoverButtonClick();
 			
@@ -46,13 +59,19 @@ public class PasswordRecovery {
 	
 //	Unregistered Email
 	@Test(priority = 2)
-	public void unregisteredEmail() throws SQLException {
-		String query = recoveryPom.query_unregisteredEmail;
+	public void unregisteredEmail() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "passwordRecoveryQuery";
+		String status = "fail";
+		String testingType = "unregisteredEmail";
 		
-		List<String[]> data = recoveryPom.dbData(query);
-		for(String[] i:data) {
-			String email = i[0];
-			String result = i[1];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String email = i.get("email");
+			String result = i.get("result");
 			
 			recoveryPom.dataEmail(email);
 			recoveryPom.recoverButtonClick();
@@ -65,13 +84,19 @@ public class PasswordRecovery {
 	
 //	Invalid Formated Email
 	@Test(priority = 3)
-	public void invalidFormatedEmail() throws SQLException {
-		String query = recoveryPom.query_invalidFormatedEmail;
+	public void invalidFormatedEmail() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "passwordRecoveryQuery";
+		String status = "fail";
+		String testingType = "invalidFormatedEmail";
 		
-		List<String[]> data = recoveryPom.dbData(query);
-		for(String[] i:data) {
-			String email = i[0];
-			String result = i[1];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String email = i.get("email");
+			String result = i.get("result");
 			
 			recoveryPom.dataEmail(email);
 			recoveryPom.recoverButtonClick();
@@ -84,13 +109,19 @@ public class PasswordRecovery {
 	
 //	Valid Email
 	@Test(priority = 4)
-	public void validEmail() throws SQLException {
-		String query = recoveryPom.query_validEmail;
+	public void validEmail() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "passwordRecoveryQuery";
+		String status = "pass";
+		String testingType = "validEmail";
 		
-		List<String[]> data = recoveryPom.dbData(query);
-		for(String[] i:data) {
-			String email = i[0];
-			String result = i[1];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String email = i.get("email");
+			String result = i.get("result");
 			
 			recoveryPom.dataEmail(email);
 			recoveryPom.recoverButtonClick();

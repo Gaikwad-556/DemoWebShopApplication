@@ -1,43 +1,23 @@
 package com.DemoWebShop.Login;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import utils.DatabaseUtils;
 
 public class POM_LoginPage {
 	private WebDriver driver;
-	private Connection con;
 
 	public POM_LoginPage(WebDriver driver) throws SQLException {
 		super();
 		this.driver = driver;
-		this.con = DriverManager.getConnection(db_url,db_user,db_password);
 	}
-	
-//	query
-	String query_emptyPasswordAndEmail = "select * from login where status='fail' AND testingType='emptyPasswordAndEmail'";
-	String query_invalidEmailFormat = "select * from login where status='fail' AND testingType='invalidEmailFormat'";
-	String query_validEmailFormatAndIncorrctPassword = "select * from login where status='fail' AND testingType='validEmailFormatAndIncorrctPassword'";
-	String query_validEmailAndEmptyPassword = "select * from login where status='fail' AND testingType='validEmailAndEmptyPassword'";
-	String query_unregisteredEmailAndCorrectPassword = "select * from login where status='fail' AND testingType='unregisteredEmailAndCorrectPassword'";
-	String query_registeredEmailAndIncorrectPassword = "select * from login where status='fail' AND testingType='registeredEmailAndIncorrectPassword'";
-	String query_registeredEmailAndPassword = "select * from login where status='pass' AND testingType='registeredEmailAndPassword'";
-	
-//	variable
-	private String db_url = System.getenv("DB_URL");
-	private String db_password = System.getenv("PASSWORD_DB");
-	private String db_user = System.getenv("USER_DB");
 	
 //	locators
 	private By loginBy = By.xpath("//a[@class='ico-login']");
@@ -49,7 +29,6 @@ public class POM_LoginPage {
 	private By errorBelow = By.cssSelector(".field-validation-error > span");
 	private By logout = By.xpath("//a[@class='ico-logout']");
 	
-
 //	login link
 	public void loginClick() {
 		driver.findElement(loginBy).click();
@@ -82,23 +61,7 @@ public class POM_LoginPage {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
 		driver.findElement(logout).click();
 	}
-	
-//	database connection
-	public List<String[]> dbData(String query) throws SQLException {
-		List<String[]> data = new ArrayList<>();
-		
-		ResultSet rs = con.createStatement().executeQuery(query);
-		while(rs.next()) {
-			String email = rs.getString("email");
-			String password = rs.getString("password");
-			String result = rs.getString("result");
-			
-			data.add(new String[] {email,password,result});
-		}		
-		return data;
-	}
-	
-	
+
 //	assert check
 //	validate messages
 	public void validateMessage1(String error1, String error2) {
@@ -130,7 +93,7 @@ public class POM_LoginPage {
 	
 //	quite
 	public void end() throws SQLException {
-		con.close();
+		DatabaseUtils.close();
 		driver.quit();
 	}
 }

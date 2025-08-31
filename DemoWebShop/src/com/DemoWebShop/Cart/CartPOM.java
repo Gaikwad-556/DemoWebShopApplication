@@ -1,15 +1,15 @@
 package com.DemoWebShop.Cart;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -18,37 +18,19 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import utils.DatabaseUtils;
+
 public class CartPOM {
 	private WebDriver driver;
-	private Connection con;
 	
 	public CartPOM(WebDriver driver) throws SQLException {
 		super();
 		this.driver = driver;
-		this.con = DriverManager.getConnection(db_url,db_user,db_password);
 		PageFactory.initElements(driver,this);
 	}
-	
-//	variable
-	private String db_url = System.getenv("DB_URL");
-	private String db_password = System.getenv("PASSWORD_DB");
-	private String db_user = System.getenv("USER_DB");
-	
-//	query
-	String query_confirmMessage = "Select * from cartfunction where status='pass' AND testingType='confirmMessage'";
-	String query_productConfirmationInCartAddFromEachProductWindow = "Select * from cartfunction where status='pass' AND testingType='productConfirmationInCartAddFromEachProductWindow'";
-	String query_inCartQuantityValueChange = "Select * from cartfunction where status='pass' AND testingType='inCartQuantityValueChange'";
-	String query_couponFieldLeftBlank = "Select * from cartfunction where status='fail' AND testingType='couponFieldLeftBlank'";
-	String query_invalidcouponField = "Select * from cartfunction where status='fail' AND testingType='invalidcouponField'";
-	String query_giftCardFieldBlank = "Select * from cartfunction where status='fail' AND testingType='giftCardFieldBlank'";
-	String query_invalidGiftCardField = "Select * from cartfunction where status='fail' AND testingType='invalidGiftCardField'";
-	String query_subTotalCheck = "Select * from cartfunction where status='pass' AND testingType='subTotalCheck'";
-	String query_checkTermAndService = "Select * from cartfunction where status='fail' AND testingType='checkTermAndService'";
-
 	
 //	login
 	@FindBy(xpath = "//a[@class='ico-login']")
@@ -66,11 +48,20 @@ public class CartPOM {
 	private By books = By.xpath("//a[@href='/books']");
 	
 //	user login
-	public void login() {
+	public void login() throws FileNotFoundException, IOException {
 		login.click();
-		email.sendKeys("om@gamil.com");
-		password.sendKeys("556556");
-		loginButton.click();
+		String queryOf = "loginQuery";
+		String status = "pass";
+		String testingType = "registeredEmailAndPassword";
+		
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		for(Map<String, String> i:data) {
+			String emailValue = i.get("email");
+			String passwordValue = i.get("password");
+			email.sendKeys(emailValue);
+			password.sendKeys(passwordValue);
+			loginButton.click();
+		}
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		WebElement book = wait.until(ExpectedConditions.visibilityOfElementLocated(books));
 		book.click();	
@@ -323,22 +314,6 @@ public class CartPOM {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.visibilityOf(checkoutButton)).click();
 	}
-	
-//	database connection
-	public List<String[]> dbData(String query) throws SQLException {
-		List<String[]> data = new ArrayList<>();
-		
-		ResultSet rs = con.createStatement().executeQuery(query);
-		while(rs.next()) {
-			String quantity = rs.getString("quantity");
-			String couponfield = rs.getString("couponfield");
-			String giftfield = rs.getString("giftfield");
-			String result = rs.getString("result");
-			
-			data.add(new String[] {quantity,couponfield,giftfield,result});
-		}
-		return data;
-	}
 		
 //	Asserts
 	
@@ -374,10 +349,18 @@ public class CartPOM {
 		for(int i=0; i<cartProductUnitPrice.size(); i++) {
 			JavascriptExecutor js =  (JavascriptExecutor) driver;
 			
-			String totalPrice1 = String.format("%.2f",Double.parseDouble(value) * Double.parseDouble(cartProductUnitPrice.get(i).getText()));
-			String productQuantity = (String) js.executeScript("return arguments[0].value;", cartProductQuantity.get(i));
-			Assert.assertEquals(cartProductTotal.get(i).getText(), totalPrice1);
-			Assert.assertEquals(productQuantity, value);
+			try {
+				String totalPrice1 = String.format("%.2f",Double.parseDouble(value) * Double.parseDouble(cartProductUnitPrice.get(i).getText()));
+				String productQuantity = (String) js.executeScript("return arguments[0].value;", cartProductQuantity.get(i));
+				Assert.assertEquals(cartProductTotal.get(i).getText(), totalPrice1);
+				Assert.assertEquals(productQuantity, value);
+			} catch (Exception e) {
+				String totalPrice1 = String.format("%.2f",Double.parseDouble(value) * Double.parseDouble(cartProductUnitPrice.get(i).getText()));
+				String productQuantity = (String) js.executeScript("return arguments[0].value;", cartProductQuantity.get(i));
+				Assert.assertEquals(cartProductTotal.get(i).getText(), totalPrice1);
+				Assert.assertEquals(productQuantity, value);
+			}
+			
 		}
 	}
 	
@@ -409,7 +392,7 @@ public class CartPOM {
 //	clear
 	public void end() throws SQLException {
 		logout.click();
-		con.close();
+		DatabaseUtils.close();
 		driver.quit();
 	}
 }

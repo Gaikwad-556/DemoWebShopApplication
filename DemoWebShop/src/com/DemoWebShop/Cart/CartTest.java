@@ -1,8 +1,11 @@
 package com.DemoWebShop.Cart;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,28 +20,37 @@ import org.testng.internal.annotations.ITest;
 
 import com.beust.jcommander.Parameter;
 
+import utils.DatabaseUtils;
+
 public class CartTest {
 	WebDriver driver;
 	CartPOM cartpom;
 	
 	@BeforeTest
 	@Parameters("carturl")
-	public void setup(String carturl) throws SQLException {
+	public void setup(String carturl) throws SQLException, InterruptedException, FileNotFoundException, IOException {
 		driver = new ChromeDriver();
 		driver.get(carturl);
 		driver.manage().window().maximize();
+		Thread.sleep(5000);
 		cartpom = new CartPOM(driver);
 		cartpom.login();
 	}
 	
 //	confirm message after product added to cart
 	@Test(priority = 1)
-	public void confirmMessage() throws InterruptedException, SQLException {
-		String query = cartpom.query_confirmMessage;
+	public void confirmMessage() throws InterruptedException, SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "cartQuery";
+		String status = "pass";
+		String testingType = "confirmMessage";
 		
-		List<String[]> data = cartpom.dbData(query);
-		for(String[] i:data) {
-			String result = i[3];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String result = i.get("result");
 			
 			cartpom.clickAddtoCartButton();
 			
@@ -69,12 +81,18 @@ public class CartTest {
 	
 //	Product Confirmation In Cart Add From Each Product Window
 	@Test(priority = 3)
-	public void productConfirmationInCartAddFromEachProductWindow() throws SQLException {
-		String query = cartpom.query_productConfirmationInCartAddFromEachProductWindow;
+	public void productConfirmationInCartAddFromEachProductWindow() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "cartQuery";
+		String status = "pass";
+		String testingType = "productConfirmationInCartAddFromEachProductWindow";
 		
-		List<String[]> data = cartpom.dbData(query);
-		for(String[] i:data) {
-			String[] quantity = i[0].split(",");
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String[] quantity = i.get("quantity").split(",");
 			
 			String product1Quantity = quantity[0];
 			cartpom.product1Click();
@@ -104,12 +122,18 @@ public class CartTest {
 	
 //	In Cart Quantity Value Change
 	@Test(priority = 4)
-	public void inCartQuantityValueChange() throws InterruptedException, SQLException {
-		String query = cartpom.query_inCartQuantityValueChange;
+	public void inCartQuantityValueChange() throws InterruptedException, SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "cartQuery";
+		String status = "pass";
+		String testingType = "inCartQuantityValueChange";
 		
-		List<String[]> data = cartpom.dbData(query);
-		for(String[] i:data) {
-			String quantity = i[0];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String quantity = i.get("quantity");
 			
 			cartpom.clickAddtoCartButton();
 			cartpom.cartLinkClick();
@@ -127,13 +151,19 @@ public class CartTest {
 	
 //	Coupon Field Left Blank
 	@Test(priority = 5) 
-	public void couponFieldLeftBlank() throws InterruptedException, SQLException {
-		String query = cartpom.query_couponFieldLeftBlank;
+	public void couponFieldLeftBlank() throws InterruptedException, SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "cartQuery";
+		String status = "fail";
+		String testingType = "couponFieldLeftBlank";
 		
-		List<String[]> data = cartpom.dbData(query);
-		for(String[] i:data) {
-			String couponField = i[1];
-			String result = i[3];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String couponField = i.get("couponfield");
+			String result = i.get("result");
 			
 			cartpom.clickAddtoCartButton();
 			cartpom.cartLinkClick();
@@ -152,13 +182,19 @@ public class CartTest {
 	
 //	Invalid Coupon Field
 	@Test(priority = 6) 
-	public void invalidcouponField() throws InterruptedException, SQLException {
-		String query = cartpom.query_invalidcouponField;
+	public void invalidcouponField() throws InterruptedException, SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "cartQuery";
+		String status = "fail";
+		String testingType = "invalidcouponField";
 		
-		List<String[]> data = cartpom.dbData(query);
-		for(String[] i:data) {
-			String couponField = i[1];
-			String result = i[3];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String couponField = i.get("couponfield");
+			String result = i.get("result");
 			
 			cartpom.clickAddtoCartButton();
 			cartpom.cartLinkClick();
@@ -177,13 +213,19 @@ public class CartTest {
 	
 //	Gift Card Field Blank
 	@Test(priority = 7) 
-	public void giftCardFieldBlank() throws InterruptedException, SQLException {
-		String query = cartpom.query_giftCardFieldBlank;
+	public void giftCardFieldBlank() throws InterruptedException, SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "cartQuery";
+		String status = "fail";
+		String testingType = "giftCardFieldBlank";
 		
-		List<String[]> data = cartpom.dbData(query);
-		for(String[] i:data) {
-			String giftField = i[2];
-			String result = i[3];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String giftField = i.get("giftfield");
+			String result = i.get("result");
 			
 			cartpom.clickAddtoCartButton();
 			cartpom.cartLinkClick();
@@ -202,13 +244,19 @@ public class CartTest {
 	
 //	Invalid Gift Card Field
 	@Test(priority = 8) 
-	public void invalidGiftCardField() throws InterruptedException, SQLException {
-		String query = cartpom.query_invalidGiftCardField;
+	public void invalidGiftCardField() throws InterruptedException, SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "cartQuery";
+		String status = "fail";
+		String testingType = "invalidGiftCardField";
 		
-		List<String[]> data = cartpom.dbData(query);
-		for(String[] i:data) {
-			String giftField = i[2];
-			String result = i[3];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String giftField = i.get("giftfield");
+			String result = i.get("result");
 			
 			
 			cartpom.clickAddtoCartButton();
@@ -228,12 +276,18 @@ public class CartTest {
 	
 //	Sub-Total Check
 	@Test(priority = 9)
-	public void subTotalCheck() throws InterruptedException, SQLException {
-		String query = cartpom.query_subTotalCheck;
+	public void subTotalCheck() throws InterruptedException, SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "cartQuery";
+		String status = "pass";
+		String testingType = "subTotalCheck";
 		
-		List<String[]> data = cartpom.dbData(query);
-		for(String[] i:data) {
-			String quantity = i[0];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String quantity = i.get("quantity");
 			
 			cartpom.clickAddtoCartButton();
 			cartpom.cartLinkClick();
@@ -251,12 +305,18 @@ public class CartTest {
 	
 //	Check Term Of Service
 	@Test(priority = 10)
-	public void checkTermOfService() throws InterruptedException, SQLException {
-		String query = cartpom.query_checkTermAndService;
+	public void checkTermOfService() throws InterruptedException, SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "cartQuery";
+		String status = "fail";
+		String testingType = "checkTermAndService";
 		
-		List<String[]> data = cartpom.dbData(query);
-		for(String[] i:data) {
-			String result = i[3];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String result = i.get("result");
 			
 			cartpom.clickAddtoCartButton();
 			cartpom.cartLinkClick();

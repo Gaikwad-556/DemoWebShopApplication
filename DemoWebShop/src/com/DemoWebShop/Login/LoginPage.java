@@ -1,7 +1,10 @@
 package com.DemoWebShop.Login;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,6 +18,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import utils.DatabaseUtils;
+
 public class LoginPage {
 
 	WebDriver driver;
@@ -22,24 +27,31 @@ public class LoginPage {
 	
 	@BeforeTest
 	@Parameters("loginurl")
-	public void setUp(String loginurl) throws SQLException {
+	public void setUp(String loginurl) throws SQLException, InterruptedException {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get(loginurl);
+		Thread.sleep(5000);
 		pomLoginPage = new POM_LoginPage(driver);
 		pomLoginPage.loginClick();
 	}
 	
 //	Empty Password And Email field
 	@Test(priority = 1)
-	public void emptyPasswordAndEmail() throws SQLException {
-		String query = pomLoginPage.query_emptyPasswordAndEmail;
+	public void emptyPasswordAndEmail() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "loginQuery";
+		String status = "fail";
+		String testingType = "emptyPasswordAndEmail";
 		
-		List<String[]> data = pomLoginPage.dbData(query);
-		for(String[] i:data) {
-			String email = i[0];
-			String password = i[1];
-			String[] result = i[2].split(",");
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String email = i.get("email");
+			String password = i.get("password");
+			String[] result = i.get("result").split(",");
 			
 			pomLoginPage.emailFieldEntry(email);
 			pomLoginPage.passwordFieldEntry(password);
@@ -55,14 +67,20 @@ public class LoginPage {
 	
 //	Invalid Email Format
 	@Test(priority = 2)
-	public void invalidEmailFormat() throws SQLException {
-		String query = pomLoginPage.query_invalidEmailFormat;
+	public void invalidEmailFormat() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "loginQuery";
+		String status = "fail";
+		String testingType = "invalidEmailFormat";
 		
-		List<String[]> data = pomLoginPage.dbData(query);
-		for(String[] i:data) {
-			String email = i[0];
-			String password = i[1];
-			String result = i[2];
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String email = i.get("email");
+			String password = i.get("password");
+			String result = i.get("result");
 			
 			pomLoginPage.emailFieldEntry(email);
 			pomLoginPage.passwordFieldEntry(password);
@@ -77,14 +95,20 @@ public class LoginPage {
 	
 //	Valid Email Format And Incorrct Password
 	@Test(priority = 3)
-	public void validEmailFormatAndIncorrctPassword() throws SQLException {
-		String query = pomLoginPage.query_validEmailFormatAndIncorrctPassword;
+	public void validEmailFormatAndIncorrctPassword() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "loginQuery";
+		String status = "fail";
+		String testingType = "validEmailFormatAndIncorrctPassword";
 		
-		List<String[]> data = pomLoginPage.dbData(query);
-		for(String[] i:data) {
-			String email = i[0];
-			String password = i[1];
-			String[] result = i[2].split(",");
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String email = i.get("email");
+			String password = i.get("password");
+			String[] result = i.get("result").split(",");
 			
 			pomLoginPage.emailFieldEntry(email);
 			pomLoginPage.passwordFieldEntry(password);
@@ -100,14 +124,20 @@ public class LoginPage {
 	
 //	Valid Email And Empty Password
 	@Test(priority = 4)
-	public void validEmailAndEmptyPassword() throws SQLException {
-		String query = pomLoginPage.query_validEmailAndEmptyPassword;
+	public void validEmailAndEmptyPassword() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "loginQuery";
+		String status = "fail";
+		String testingType = "validEmailAndEmptyPassword";
 		
-		List<String[]> data = pomLoginPage.dbData(query);
-		for(String[] i:data) {
-			String email = i[0];
-			String password = i[1];
-			String[] result = i[2].split(",");
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String email = i.get("email");
+			String password = i.get("password");
+			String[] result = i.get("result").split(",");
 			
 			pomLoginPage.emailFieldEntry(email);
 			pomLoginPage.passwordFieldEntry(password);
@@ -123,14 +153,20 @@ public class LoginPage {
 	
 //	Unregistered Email And Correct Password
 	@Test(priority = 5)
-	public void unregisteredEmailAndCorrectPassword() throws SQLException {
-		String query = pomLoginPage.query_unregisteredEmailAndCorrectPassword;
+	public void unregisteredEmailAndCorrectPassword() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "loginQuery";
+		String status = "fail";
+		String testingType = "unregisteredEmailAndCorrectPassword";
 		
-		List<String[]> data = pomLoginPage.dbData(query);
-		for(String[] i:data) {
-			String email = i[0];
-			String password = i[1];
-			String[] result = i[2].split(",");
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String email = i.get("email");
+			String password = i.get("password");
+			String[] result = i.get("result").split(",");
 			
 			pomLoginPage.emailFieldEntry(email);
 			pomLoginPage.passwordFieldEntry(password);
@@ -146,14 +182,20 @@ public class LoginPage {
 	
 //	Registered Email And Incorrect Password
 	@Test(priority = 6)
-	public void registeredEmailAndIncorrectPassword() throws SQLException {
-		String query = pomLoginPage.query_registeredEmailAndIncorrectPassword;
+	public void registeredEmailAndIncorrectPassword() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "loginQuery";
+		String status = "fail";
+		String testingType = "registeredEmailAndIncorrectPassword";
 		
-		List<String[]> data = pomLoginPage.dbData(query);
-		for(String[] i:data) {
-			String email = i[0];
-			String password = i[1];
-			String[] result = i[2].split(",");
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String email = i.get("email");
+			String password = i.get("password");
+			String[] result = i.get("result").split(",");
 			
 			pomLoginPage.emailFieldEntry(email);
 			pomLoginPage.passwordFieldEntry(password);
@@ -169,14 +211,20 @@ public class LoginPage {
 	
 //	Registered Email And Password
 	@Test(priority = 7)
-	public void registeredEmailAndPassword() throws SQLException {
-		String query = pomLoginPage.query_registeredEmailAndPassword;
-
-		List<String[]> data = pomLoginPage.dbData(query);
-		for(String[] i:data) {
-			String email = i[0];
-			String password = i[1];
-			String result = i[2];
+	public void registeredEmailAndPassword() throws SQLException, FileNotFoundException, IOException {
+//		query parameters
+		String queryOf = "loginQuery";
+		String status = "pass";
+		String testingType = "registeredEmailAndPassword";
+		
+//		database data
+		List<Map<String, String>> data = DatabaseUtils.getData(status, testingType, queryOf);
+		
+//		interacting with browser
+		for(Map<String, String> i:data) {
+			String email = i.get("email");
+			String password = i.get("password");
+			String[] result = i.get("result").split(",");
 			
 			pomLoginPage.emailFieldEntry(email);
 			pomLoginPage.passwordFieldEntry(password);
