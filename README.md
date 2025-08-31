@@ -42,6 +42,9 @@ Before running the tests, ensure you have the following installed:
 - Introduce cross-browser testing support.
 - Integrate with Jenkins CI/CD pipeline for automated execution.
 
+NOTE: 
+“All SQL queries used for data-driven testing are stored in queries.properties. No sensitive credentials are included; database credentials must be configured via environment variables.”
+
 👨‍💻 Author
 
 Shubhankar S. Gaikwad
