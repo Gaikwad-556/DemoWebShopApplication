@@ -6,8 +6,14 @@
     <classes>
       <class name="com.DemoWebShop.Cart.CartTest">
         <methods>
+          <include name="couponFieldLeftBlank"/>
+          <include name="invalidcouponField"/>
+          <include name="checkTermOfService"/>
+          <include name="subTotalCheck"/>
           <include name="setup"/>
           <include name="clear"/>
+          <include name="giftCardFieldBlank"/>
+          <include name="invalidGiftCardField"/>
           <include name="inCartQuantityValueChange"/>
         </methods>
       </class> <!-- com.DemoWebShop.Cart.CartTest -->
